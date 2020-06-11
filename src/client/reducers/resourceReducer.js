@@ -1,7 +1,5 @@
 import * as types from '../constants/actionTypes';
 
-
-
 // Set initial state
 const initialState = {
   resources: [
@@ -15,9 +13,9 @@ const initialState = {
     },
   ],
   currentTopic: {
-    _id: "5ee12f3ce11d110f1c35dfb0",
+    _id: '5ee12f3ce11d110f1c35dfb0',
     id: 1,
-    name: "React",
+    name: 'React',
     __v: 21,
   },
   topics: [],
@@ -25,7 +23,7 @@ const initialState = {
 
 const resourceReducer = (state = initialState, action) => {
   switch (action.type) {
-    //Update state with array of techs 
+    //Update state with array of techs
     case types.GET_TECH:
       return {
         ...state,
@@ -59,14 +57,14 @@ const resourceReducer = (state = initialState, action) => {
       // Backend returns an array of resource objects with the updated likes for each
       return {
         ...state,
-        resources: action.payload,
+        // resources: action.payload,
       };
     // Update state with new number of upvotes
     case types.DOWNVOTE:
       // Backend returns one an array of resource objects with updated likes for each
       return {
         ...state,
-        resources: action.payload,
+        // resources: action.payload,
       };
     default:
       return state;

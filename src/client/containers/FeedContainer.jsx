@@ -25,40 +25,42 @@ const useStyles = makeStyles((theme) => ({
 
 // maps array of resources and current topic from store as props
 
-
-
 // maps relevant dispatches to functions available as props for
 // getting resources and upvoting / downvoting a particular resource
 
-const mapDispatchToProps = (dispatch) => ({
-  // getResource: (tech_name) => {
-  //   dispatch(actions.getResource(tech_name));
-  // },
-  upvote: (resource_id, resource_tech) => {
-    dispatch(actions.upvote(resource_id, resource_tech));
-  },
-  downvote: (resource_id, resource_tech) => {
-    dispatch(actions.downvote(resource_id, resource_tech));
-  },
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   // getResource: (tech_name) => {
+//   //   dispatch(actions.getResource(tech_name));
+//   // },
+//   upvote: (resource_id, resource_tech) => {
+//     dispatch(actions.upvote(resource_id, resource_tech));
+//   },
+//   downvote: (resource_id, resource_tech) => {
+//     dispatch(actions.downvote(resource_id, resource_tech));
+//   },
+// });
 
 const FeedContainer = (props) => {
   const classes = useStyles();
-  const resources = useSelector(state => {
-    return state.resources
-  }); 
-  const currentTopic = useSelector(state => {
-    return state.currentTopic
+  const resources = useSelector((state) => {
+    return state.resources;
   });
-  const dispatch = useDispatch()
+  const currentTopic = useSelector((state) => {
+    return state.currentTopic;
+  });
+  const dispatch = useDispatch();
 
   return (
     <div className={classes.shiftDown}>
       <FeedHeader currentTopic={currentTopic} />
       <FeedItemContainer
         resources={resources}
-        upvote={() => dispatch(actions.upvote(resource_id, resource_tech))}
-        downvote={() => dispatch(actions.downvote(resource_id, resource_tech))}
+        upvote={(resource_id, resource_tech) =>
+          dispatch(actions.upvote(resource_id, resource_tech))
+        }
+        downvote={(resource_id, resource_tech) =>
+          dispatch(actions.downvote(resource_id, resource_tech))
+        }
       />
       <FeedForm />
     </div>
