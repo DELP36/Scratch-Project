@@ -22,6 +22,7 @@ const initialState = {
 };
 
 const resourceReducer = (state = initialState, action) => {
+  console.log('reducer action.payload'  , action.payload)
   switch (action.type) {
     //Update state with array of techs
     case types.GET_TECH:
@@ -45,7 +46,8 @@ const resourceReducer = (state = initialState, action) => {
     case types.ADD_RESOURCE:
       return {
         ...state,
-        resources: action.payload,
+        currentTopic: action.payload,
+        // resources: action.payload,
       };
 
     // case types.ADD_COMMENT:

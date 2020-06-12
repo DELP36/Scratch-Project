@@ -42,7 +42,8 @@ resourceController.getTech = (req, res, next) => {
 
 // we need a name, desc, url, likes, comments
 resourceController.createResources = (req, res, next) => {
-  const tech_id = req.params.id;
+  console.log('inside createresource ****** ?????////',req.body)
+  const tech_id = req.body.techId;
 
   Tech.findById(tech_id)
     .exec()

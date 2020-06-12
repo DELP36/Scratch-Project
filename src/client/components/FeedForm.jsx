@@ -61,6 +61,9 @@ const mapDispatchToProps = (dispatch) => ({
   addResource: (resource_obj) => {
     dispatch(actions.addResource(resource_obj));
   },
+  getResource: (currentTopic) => {
+    dispatch(actions.getResource(currentTopic));
+  }
 });
 
 const FeedForm = (props) => {
@@ -111,15 +114,26 @@ const FeedForm = (props) => {
   // then calls the appropriate dispatch action passed down as a prop
   // to add new resource to database
   // (small delay added before closing modal to simulate a brief 'thinking' period)
+  // Resource.create({
+  //   name: req.body.name,
+  //   description: req.body.description,
+  //   url: req.body.url,
+  //   likes: 0,
+  //   comments: [],
+  //   techId: tech_id,
+  // })
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
       let resourceObj = { name, description, url, tech, liked, likes };
+      resourceObj.techId = tech._id
       console.log('Sending the following resource to db:');
       console.log(resourceObj);
       props.addResource(resourceObj);
       setTimeout(() => {
         console.log('Resetting form and closing modal');
+        props.getResource(tech)
         clearForm();
         setOpen(false);
       }, 250);
@@ -184,8 +198,8 @@ const FeedForm = (props) => {
         <Select name="tech" value={tech} onChange={handleChange} label="Tech">
           {techs.map((elem, index) => {
             return (
-              <MenuItem key={index} value={elem.name.toLowerCase()}>
-                {elem}
+              <MenuItem key={index} value={elem}>
+                {elem.name}
               </MenuItem>
             );
           })}

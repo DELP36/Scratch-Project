@@ -1,22 +1,20 @@
 import axios from 'axios';
 import * as types from '../constants/actionTypes';
 
-//Once backend has a GET request done, finish this function to render techs on the Navbar
+//Once backend has a GET request done, finish this function to render techs on the Navbar 
 export const getTech = () => {
   return (dispatch) => {
-    axios
-      .get(`/resource/tech`)
-      .then((response) => {
+  axios
+    .get( `/resource/tech`)
+    .then((response) => {
         dispatch({
-          type: types.GET_TECH,
-          payload: response.data,
-        });
+        type: types.GET_TECH,
+        payload: response.data
+        })
       })
-      .catch((err) =>
-        console.log('there was an error in actions.js getTech:', err)
-      );
-  };
-};
+    .catch(err => console.log('there was an error in actions.js getTech:', err)); 
+  }
+}
 
 // Send get request to server for resource (tech name)
 // Input: resource name
@@ -25,7 +23,7 @@ export const getResource = (currentTopic) => {
     // console.log('request to : ', `/resource/${resource.toLowerCase()}`)
     axios
       // .get(`/resource/${resource.toLowerCase()}`)
-      .get(`/resource/${currentTopic._id}`)
+      .get(`/resource/${currentTopic._id}`)      
       .then((response) => {
         dispatch({
           type: types.GET_RESOURCE,
@@ -34,6 +32,7 @@ export const getResource = (currentTopic) => {
       });
   };
 };
+
 
 // Update the current topic to be rendered on screen (used once for initial load)
 // Input: current topic (fetched from props)
@@ -49,13 +48,16 @@ export const updateTopic = (topic) => {
 // Send post request to server to add a new resource
 // Input: resource name in the parameter and resource object to add to DB in body
 export const addResource = (resource) => {
+  console.log('adding resource::Lkjlkj;jk', resource)
   return (dispatch) => {
-    axios.post(`/resource/${resource.name}`, resource).then((response) => {
-      dispatch({
-        type: types.ADD_RESOURCE,
-        payload: response.data,
-      });
-    });
+    axios
+      .post(`/resource/create`, resource)
+      .then((response) => {
+        dispatch({
+          type: types.ADD_RESOURCE,
+          payload: resource.tech,
+        });
+      })
   };
 };
 
@@ -77,27 +79,33 @@ export const addResource = (resource) => {
 
 // Send put request to increase like count
 // Input: Id of the resource and the technology associated with the resource
-export const upvote = (id) => {
+export const upvote = (id, tech) => {
+  console.log(id, tech)
   return (dispatch) => {
-    axios.put('/resource/upvote', { resourceId: id }).then((response) => {
-      dispatch({
-        type: types.UPVOTE,
-        payload: response.data,
+    axios
+      .put('/resource/upvote', { resourceId: id })
+      .then((response) => {
+        dispatch({
+          type: types.UPVOTE,
+          payload: response.data,
+        });
       });
-    });
   };
 };
 
 // Possibly add to DB to allow for negative numbers
 // Send put request to increase like count
 // Input: Id of the resource and the technology associated with the resource
-export const downvote = (id) => {
+export const downvote = (id, tech) => {
   return (dispatch) => {
-    axios.put('/resource/downvote', { resourceId: id }).then((response) => {
-      dispatch({
-        type: types.DOWNVOTE,
-        payload: response.data,
+    axios
+      .put('/resource/downvote', { resourceId: id })
+      .then((response) => {
+        dispatch({
+          type: types.DOWNVOTE,
+          payload: response.data,
+        });
       });
-    });
   };
 };
+
