@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   itemWrap: {
     background: '#fdfdfd',
     marginBottom: 15,
-    minWidth: 350,
+    minWidth: '50vw',
   },
   itemActions: {
     justifyContent: 'space-between',
