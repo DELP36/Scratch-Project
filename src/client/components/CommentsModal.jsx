@@ -17,7 +17,6 @@ import { Fab } from '@material-ui/core';
 
 import Comment from './Comment.jsx';
 
-
 const useStyles = makeStyles({
   itemWrap: {
     background: '#fdfdfd',
@@ -38,48 +37,42 @@ const CommentsModal = (props) => {
   // might need to pass down and invoke getComments from FeedItem
   const [formValue, setFormValue] = useState('');
 
-
   const addComment = () => {
     const reqBody = {
       resourceId: props.resourceId,
       comment: {
         text: formValue,
-        userName: 'Greg P- ScrumMaster, AtlasMaster'
-      }
-    }
+        userName: 'Greg P- ScrumMaster, AtlasMaster',
+      },
+    };
     axios
       .post(`resource/comments`, reqBody)
       .then((res) => {
-        setFormValue('')
-        props.getComments()
-        console.log('response from add Comment', res)
+        setFormValue('');
+        props.getComments();
+        console.log('response from add Comment', res);
       })
-      .catch(err => console.log(`Error in CommentsModal addComment: ${err}`))
-  }
-  
-  
+      .catch((err) => console.log(`Error in CommentsModal addComment: ${err}`));
+  };
 
-  //iterate through the commentList that was passed down FeedItem to display comments onclick 
-  const commentsArray = props.commentList.map((el, i) => <Comment text={el.text} date={el.date} key={`comment ${i}`}/>)
+  //iterate through the commentList that was passed down FeedItem to display comments onclick
+  const commentsArray = props.commentList.map((el, i) => (
+    <Comment text={el.text} date={el.date} key={`comment ${i}`} />
+  ));
   return (
     <div>
       {commentsArray}
-      <TextField 
-        variant="filled" 
-        onChange={(e) => setFormValue(e.target.value)} 
+      <TextField
+        variant="filled"
+        onChange={(e) => setFormValue(e.target.value)}
         value={formValue}
       />
-      <Fab 
-        color="primary" 
-        aria-label="add"
-        onClick={addComment}
-        >
+      <Fab color="primary" aria-label="add" onClick={addComment}>
         submit
         {/* <AddIcon /> */}
       </Fab>
-
     </div>
-  )
-}
+  );
+};
 
 export default CommentsModal;

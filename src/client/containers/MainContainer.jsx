@@ -20,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
   subHeader: {
     display: 'inline',
     marginLeft: theme.spacing(2),
-    fontSize: 15
-  }
+    fontSize: 15,
+  },
 }));
 
 // holds our top header bar, as well as our side bar (drawer), will also hold our feed container
@@ -47,4 +47,4 @@ const MainContainer = (props) => {
   );
 };
 
-export default MainContainer; 
+export default MainContainer;
